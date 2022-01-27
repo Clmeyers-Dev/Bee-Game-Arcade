@@ -28,7 +28,8 @@ public enum SceneEnum
     End_Scene,
     Game_Scene,
     Start_Menu,
-    Testing_Scene
+    Testing_Scene,
+    Options
 
 
 
