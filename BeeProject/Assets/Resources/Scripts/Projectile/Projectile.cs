@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-   
+   public float damage;
     [SerializeField]
     private float speed;
     private Rigidbody2D rb;
@@ -25,5 +25,13 @@ public class Projectile : MonoBehaviour
     }
     public void setSpeed(float s){
         speed = s;
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("hit");
+        if(other.tag == "collision"){
+            if(other.GetComponent<EnemyManager>()!=null)
+            other.GetComponent<EnemyManager>().hurt(damage);
+        }
     }
 }

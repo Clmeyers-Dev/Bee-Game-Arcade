@@ -14,7 +14,7 @@ public class VerticalParallax : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        size = bg1.GetComponent<BoxCollider2D>().size.y;
+      //  size = bg1.GetComponent<BoxCollider2D>().size.y;
     }
 
     // Update is called once per frame

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Cannon : MonoBehaviour
 {
-    // Start is called before the first frame update
+ 
     Vector3 mouse_pos; 
- //Transform target ; //Assign to the object you want to rotate
+ 
  Vector3 object_pos ;
   float angle ;
     public float offset;
