@@ -15,16 +15,19 @@ public class Fire : MonoBehaviour
     [SerializeField]
     private GameObject bullet;
     public GameObject parent;
+    public TestMovment player;
     void Start()
     {
        // parent = GetComponentInParent<GameObject>();
+       player = GetComponentInParent<TestMovment>();
     }
     public void  Update()
     {
         if(timer <=0){
         if(Input.GetKey(KeyCode.Space)){
 
-     Instantiate(bullet,firepoint.position,Quaternion.Euler(parent.transform.localEulerAngles.x,parent.transform.localEulerAngles.y,parent.transform.localEulerAngles.z) );
+  var shot =   Instantiate(bullet,firepoint.position,Quaternion.Euler(parent.transform.localEulerAngles.x,parent.transform.localEulerAngles.y,parent.transform.localEulerAngles.z) );
+            shot.GetComponent<Projectile>().setSpeed( player.getSpeed() + 20);
             timer = fireSpeed;
         }
         }else{

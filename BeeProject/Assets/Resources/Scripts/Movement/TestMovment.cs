@@ -25,6 +25,9 @@ public class TestMovment : MonoBehaviour
     if(downwardSpeed <SpeedCap)
         downwardSpeed+=moveSpeedIncrement *Time.deltaTime;
     }
+    public float getSpeed(){
+        return downwardSpeed;
+    }
     public void slow(){
         downwardSpeed = downwardSpeed/2;
     }

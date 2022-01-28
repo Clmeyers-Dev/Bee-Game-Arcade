@@ -23,4 +23,7 @@ public class Projectile : MonoBehaviour
     {
         transform.Translate(Vector3.down*speed*Time.deltaTime);
     }
+    public void setSpeed(float s){
+        speed = s;
+    }
 }
