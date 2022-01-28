@@ -14,13 +14,17 @@ public class Fire : MonoBehaviour
     public Transform firepoint;
     [SerializeField]
     private GameObject bullet;
-
+    public GameObject parent;
+    void Start()
+    {
+       // parent = GetComponentInParent<GameObject>();
+    }
     public void  Update()
     {
         if(timer <=0){
         if(Input.GetKey(KeyCode.Space)){
 
-            Instantiate(bullet,firepoint.position,Quaternion.Euler(new Vector3(0,0,fireangle)));
+     Instantiate(bullet,firepoint.position,Quaternion.Euler(parent.transform.localEulerAngles.x,parent.transform.localEulerAngles.y,parent.transform.localEulerAngles.z) );
             timer = fireSpeed;
         }
         }else{
