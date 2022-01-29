@@ -5,50 +5,69 @@ using UnityEngine;
 public class TestMovment : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField]
-    private float upAndDown = 6;
+    //[SerializeField]
+    //private float upAndDown = 6;
     [SerializeField]
     private float downwardSpeed = 6;
-     [SerializeField]
+    [SerializeField]
     private float LeftAndRight = 6;
     [SerializeField]
-    private float moveSpeedIncrement =.1f;
+    private float moveSpeedIncrement = .1f;
     [SerializeField]
     private float SpeedCap = 20f;
-
+    public GameObject left;
+    public GameObject right;
+     public GameObject top;
+    public GameObject bottom;
     void Start()
     {
-        
+
     }
-    void  Update()
+    void Update()
     {
-    if(downwardSpeed <SpeedCap)
-        downwardSpeed+=moveSpeedIncrement *Time.deltaTime;
+       // if (downwardSpeed < SpeedCap)
+         //   downwardSpeed += moveSpeedIncrement * Time.deltaTime;
     }
-    public float getSpeed(){
+    public float getSpeed()
+    {
         return downwardSpeed;
     }
-    public void slow(){
-        downwardSpeed = downwardSpeed/2;
+    public void slow()
+    {
+        downwardSpeed = downwardSpeed / 2;
     }
     // Update is called once per frame
+    [SerializeField]
+    private float Rightoffset;
+    [SerializeField]
+    private float LeftOffset;
+      [SerializeField]
+    private float topOffset;
+    [SerializeField]
+    private float BottomOffset;
     void FixedUpdate()
     {
-        transform.Translate(Vector3.down*downwardSpeed*Time.deltaTime);
-        if(Input.GetKey(KeyCode.UpArrow)&&downwardSpeed>6){
-            downwardSpeed -=(upAndDown*2)*Time.deltaTime;
-         //  transform.Translate(Vector3.up*upAndDown*Time.deltaTime);
-       }
-        if(Input.GetKey(KeyCode.DownArrow)&&downwardSpeed<SpeedCap){
+        //   transform.Translate(Vector3.down*downwardSpeed*Time.deltaTime);
+        
+        if (Input.GetKey(KeyCode.W) && transform.position.y < top.transform.position.y+topOffset)// downwardSpeed > 6)
+        {
+            // downwardSpeed -=(upAndDown*2)*Time.deltaTime;
+            transform.Translate(Vector3.up * LeftAndRight * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.S) && transform.position.y > bottom.transform.position.y+BottomOffset )//downwardSpeed < SpeedCap)
+        {
 
-             downwardSpeed +=upAndDown*Time.deltaTime;
-           // transform.Translate(Vector3.down*upAndDown*Time.deltaTime);
+            //downwardSpeed +=upAndDown*Time.deltaTime;
+            transform.Translate(Vector3.down * LeftAndRight * Time.deltaTime);
         }
-        if(Input.GetKey(KeyCode.LeftArrow)){
-            transform.Translate(Vector3.left*LeftAndRight*Time.deltaTime);
+        
+        if (Input.GetKey(KeyCode.A)&&transform.position.x>left.transform.position.x+LeftOffset)
+        {
+            transform.Translate(Vector3.left * LeftAndRight * Time.deltaTime);
         }
-         if(Input.GetKey(KeyCode.RightArrow)){
-            transform.Translate(-Vector3.left*LeftAndRight*Time.deltaTime);
+        if (Input.GetKey(KeyCode.D)&&transform.position.x<right.transform.position.x+Rightoffset)
+        {
+            transform.Translate(-Vector3.left * LeftAndRight * Time.deltaTime);
         }
     }
 }

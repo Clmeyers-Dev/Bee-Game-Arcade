@@ -27,7 +27,7 @@ public class Fire : MonoBehaviour
         if(Input.GetKey(KeyCode.Space)){
 
   var shot =   Instantiate(bullet,firepoint.position,Quaternion.Euler(parent.transform.localEulerAngles.x,parent.transform.localEulerAngles.y,parent.transform.localEulerAngles.z) );
-            shot.GetComponent<Projectile>().setSpeed( player.getSpeed() + 20);
+            //shot.GetComponent<Projectile>().setSpeed( player.getSpeed() + 20);
             timer = fireSpeed;
         }
         }else{
