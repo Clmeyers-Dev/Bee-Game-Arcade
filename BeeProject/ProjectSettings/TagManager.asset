@@ -7,6 +7,10 @@ TagManager:
   - collision
   - enemy
   - confiner
+  - Spread
+  - Laser
+  - Burst
+  - cannon
   layers:
   - Default
   - TransparentFX
@@ -16,7 +20,7 @@ TagManager:
   - UI
   - confiner
   - background
-  - 
+  - collision
   - 
   - 
   - 

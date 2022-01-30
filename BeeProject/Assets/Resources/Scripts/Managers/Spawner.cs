@@ -23,7 +23,7 @@ public class Spawner : MonoBehaviour
     public float offset =5;
     void Update()
     {
-          max =Random.Range(-spawnbox.bounds.size.x+offset,spawnbox.bounds.size.x-offset) ;
+          max =Random.Range(spawnbox.bounds.min.x,spawnbox.bounds.max.x) ;
         if(curTime >= spawnRate){
             spawnPoint = max;
             //spawn

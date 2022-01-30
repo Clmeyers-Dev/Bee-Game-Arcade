@@ -19,6 +19,9 @@ public class Fire : MonoBehaviour
     
    public AudioSource audioPlayer;
   public  AudioClip sound;
+  public void setBullet(GameObject b){
+ bullet = b;
+  }
     void Start()
     {
        // parent = GetComponentInParent<GameObject>();

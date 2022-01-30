@@ -9,6 +9,7 @@ public class Modifiers : MonoBehaviour
     private bool spreadShotFlag;
     private bool HoneyLaserFlag;
     private bool burstShotFlag;
+    public AudioSource[] laserSounds = new AudioSource[3];
     private PlayerManager playerMan;
     [SerializeField]
     private AudioClip modifierSound;
@@ -17,19 +18,26 @@ public class Modifiers : MonoBehaviour
     private float modifierTime;
     [SerializeField]
     GameObject[] cannons = new GameObject[2];
+    public GameObject mainLaser;
+   public GameObject[] sideLasers = new GameObject[2];
     void Start()
     {
         playerMan = FindObjectOfType<PlayerManager>();
     }
-
+    public GameObject mainGun;
     // Update is called once per frame
     void Update()
     {
         if(curTime <=0){
         spreadShot.SetActive(false);
+        DeActivateLasers();
         spreadShotFlag = false;
         HoneyLaserFlag = false;
         burstShotFlag = false;
+        for(int i = 0;i < laserSounds.Length;i++){
+            laserSounds[i].Stop();
+        }
+         playerMan.playerMainGunFire.setBullet(normalShot);
         }else{
             curTime -=Time.deltaTime;
         }
@@ -41,20 +49,34 @@ public class Modifiers : MonoBehaviour
         burstShotFlag = false;
         curTime = modifierTime;
     }
+    public GameObject[] cannonGuns= new GameObject[2];
     public void activateHoneyLaser(){
+        mainGun.SetActive(false);
         spreadShot.SetActive(false);
-        spreadShotFlag = true;
-        HoneyLaserFlag = false;
+        spreadShotFlag = false;
+        HoneyLaserFlag = true;
         burstShotFlag = false;
+         mainLaser.SetActive(true);
+        for(int i = 0; i < 2;i++){
+            cannonGuns[i].SetActive(false);
+            if(sideLasers[i].activeSelf==false&& cannons[i].activeSelf==true){
+                sideLasers[i].SetActive(true);
+                
+            }
+        }
          curTime = modifierTime;
     
 
     }
+    public GameObject burstShot;
+    public GameObject normalShot;
     public void activateBurstShot(){
         spreadShot.SetActive(false);
-        spreadShotFlag = true;
+        DeActivateLasers();
+        spreadShotFlag = false;
         HoneyLaserFlag = false;
-        burstShotFlag = false;
+        burstShotFlag = true;
+       playerMan.playerMainGunFire.setBullet(burstShot);
          curTime = modifierTime;
 
     }
@@ -62,6 +84,21 @@ public class Modifiers : MonoBehaviour
           for(int i = 0; i < 2;i++){
             if(!cannons[i].activeSelf){
                 cannons[i].SetActive(true);
+                
+            }
+            if(HoneyLaserFlag){
+                activateHoneyLaser();
+            }
+        }
+    }
+    public void DeActivateLasers(){
+         mainLaser.SetActive(false);
+         mainGun.SetActive(true);
+         HoneyLaserFlag = false;
+        for(int i = 0; i < 2;i++){
+            if(sideLasers[i].activeSelf&& cannons[i].activeSelf){
+                sideLasers[i].SetActive(false);
+                 cannonGuns[i] .SetActive(true);
             }
         }
     }
@@ -74,22 +111,30 @@ void OnTriggerEnter2D(Collider2D other)
         playerMan.addPoints(500);
         Debug.Log("spread active");
         activateSpreadShot();
+        DeActivateLasers();
         Destroy(other.gameObject);
     }
     if(other.tag == "Laser"){
         playerMan.audioSource.PlayOneShot(modifierSound);
          playerMan.addPoints(500);
         activateHoneyLaser();
+           Destroy(other.gameObject);
     }
     if(other.tag == "Burst"){
         playerMan.audioSource.PlayOneShot(modifierSound);
          playerMan.addPoints(500);
         activateBurstShot();
+        DeActivateLasers();
+        Destroy(other.gameObject);
     }
     if(other.tag == "cannon"){
+        playerMan.audioSource.PlayOneShot(modifierSound);
          playerMan.addPoints(500);
         Debug.Log("cannons active");
         activateCannons();
+        if(HoneyLaserFlag){
+            activateHoneyLaser();
+        }
         Destroy(other.gameObject);
       
     }

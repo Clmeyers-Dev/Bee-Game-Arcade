@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Cinemachine;
 public class EnemyManager : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -20,12 +20,16 @@ public class EnemyManager : MonoBehaviour
     public AudioClip deathSound;
     public float maxTime;
     private float curTimer;
+    public CinemachineImpulseSource	impulse;
     void Start()
     {
+      impulse = GetComponent<CinemachineImpulseSource>();
       
 
         //playerSprite = GetComponentInChildren<SpriteRenderer>();
     }
+   
+
 
     // Update is called once per frame
     void Update()
@@ -34,6 +38,7 @@ public class EnemyManager : MonoBehaviour
         curTimer+=Time.deltaTime;
         if(health<=0){
             AddPoints(points);
+            impulse.GenerateImpulse();
           //  audioPlayer.PlayOneShot(deathSound);
             Destroy(gameObject);
         }
@@ -43,7 +48,7 @@ public class EnemyManager : MonoBehaviour
             {
                 foreach(SpriteRenderer sprite in spriteArray){
                     if(sprite!=null)
-                    sprite.color =new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
+                    sprite.color =new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, .5f);
                 }
               //  playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
             }
@@ -59,7 +64,7 @@ public class EnemyManager : MonoBehaviour
             {
                 foreach(SpriteRenderer sprite in spriteArray){
                     if(sprite!=null)
-                    sprite.color =new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
+                    sprite.color =new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, .5f);
                 }
                // playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
             }
@@ -75,7 +80,7 @@ public class EnemyManager : MonoBehaviour
             {
                 foreach(SpriteRenderer sprite in spriteArray){
                     if(sprite!=null)
-                    sprite.color =new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
+                    sprite.color =new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, .5f);
                 }
               //  playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
             }
@@ -91,7 +96,7 @@ public class EnemyManager : MonoBehaviour
             {
                 foreach(SpriteRenderer sprite in spriteArray){
                     if(sprite!=null)
-                    sprite.color =new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
+                    sprite.color =new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, .5f);
                 }
                // playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
             }
