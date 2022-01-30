@@ -6,12 +6,12 @@ public class basic_Wasp : MonoBehaviour
 {
     // Start is called before the first frame update
     private Vector3 start;
- [SerializeField]
-    private float freq = 5f;
-    [SerializeField]
-    private float mag = 5f;
-    [SerializeField]
-    private float offset = 0f;
+ //[SerializeField]
+    //private float freq = 5f;
+    //[SerializeField]
+   // private float mag = 5f;
+    //[SerializeField]
+  //  private float offset = 0f;
     [SerializeField]
     float speed = 5f;
       [SerializeField]

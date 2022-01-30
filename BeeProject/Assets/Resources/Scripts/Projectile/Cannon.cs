@@ -19,7 +19,7 @@ public class Cannon : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("hit");
+    //    Debug.Log("hit");
         if(other.tag == "collision"){
             //TODO  create an explosion on impact 
             gameObject.SetActive(false);

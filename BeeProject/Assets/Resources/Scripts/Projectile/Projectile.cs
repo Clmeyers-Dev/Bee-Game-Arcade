@@ -28,8 +28,9 @@ public class Projectile : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("hit");
+//         Debug.Log("hit");
         if(other.tag == "collision"){
+            Destroy(gameObject);
             if(other.GetComponent<EnemyManager>()!=null)
             other.GetComponent<EnemyManager>().hurt(damage);
         }

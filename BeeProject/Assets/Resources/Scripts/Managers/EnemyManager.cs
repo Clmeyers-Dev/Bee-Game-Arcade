@@ -15,6 +15,11 @@ public class EnemyManager : MonoBehaviour
     public SpriteRenderer [] spriteArray  = new SpriteRenderer [1];  
     [SerializeField]
     private int points;
+    public AudioSource audioPlayer;
+    public AudioClip sound;
+    public AudioClip deathSound;
+    public float maxTime;
+    private float curTimer;
     void Start()
     {
       
@@ -25,8 +30,11 @@ public class EnemyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(curTimer<=maxTime)
+        curTimer+=Time.deltaTime;
         if(health<=0){
             AddPoints(points);
+          //  audioPlayer.PlayOneShot(deathSound);
             Destroy(gameObject);
         }
          if (flashActive)
@@ -103,8 +111,16 @@ public class EnemyManager : MonoBehaviour
         flashActive = true;
          flashCounter = flashLength;
         health -= dmg;
+        if(curTimer >=maxTime){
+           // Debug.Log("play sound");
+//          audioPlayer.PlayOneShot(sound);
+          curTimer = 0;
+        }
     }
+  
     public void AddPoints(int p){
-
+  PlayerManager player = FindObjectOfType<PlayerManager>();
+  player.audioSource.PlayOneShot(deathSound);
+  player.addPoints(p);
     }
 }
