@@ -8,7 +8,7 @@ public class Fire : MonoBehaviour
      [SerializeField]
     private float fireangle;
     [SerializeField]
-    private float fireSpeed = 0.5f;
+    public float fireSpeed = 0.5f;
     [SerializeField]
     private float timer;
     public Transform firepoint;
@@ -16,14 +16,21 @@ public class Fire : MonoBehaviour
     private GameObject bullet;
     public GameObject parent;
     public PlayerManager player;
+    [SerializeField]
+    public float burstFireSpeed =1;
     
    public AudioSource audioPlayer;
   public  AudioClip sound;
+  public float currentSpeed;
   public void setBullet(GameObject b){
  bullet = b;
   }
+  public void setFireSpeed(float s){
+    currentSpeed = s;
+  }
     void Start()
     {
+      currentSpeed = fireSpeed;
        // parent = GetComponentInParent<GameObject>();
        player = GetComponentInParent<PlayerManager>();
       // audioPlayer = FindObjectOfType<AudioSource>();
@@ -36,7 +43,7 @@ public class Fire : MonoBehaviour
   var shot =   Instantiate(bullet,firepoint.position,Quaternion.Euler(parent.transform.localEulerAngles.x,parent.transform.localEulerAngles.y,parent.transform.localEulerAngles.z+fireangle) );
     audioPlayer.PlayOneShot(sound);
             //shot.GetComponent<Projectile>().setSpeed( player.getSpeed() + 20);
-            timer = fireSpeed;
+            timer = currentSpeed;
         }
         }else{
             timer -= Time.deltaTime;

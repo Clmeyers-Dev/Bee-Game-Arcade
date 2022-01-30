@@ -34,6 +34,7 @@ public class Modifiers : MonoBehaviour
         spreadShotFlag = false;
         HoneyLaserFlag = false;
         burstShotFlag = false;
+        mainCannonFire.setFireSpeed(mainCannonFire.fireSpeed);
         for(int i = 0;i < laserSounds.Length;i++){
             laserSounds[i].Stop();
         }
@@ -47,6 +48,7 @@ public class Modifiers : MonoBehaviour
         spreadShotFlag = true;
         HoneyLaserFlag = false;
         burstShotFlag = false;
+         playerMan.playerMainGunFire.setBullet(normalShot);
         curTime = modifierTime;
     }
     public GameObject[] cannonGuns= new GameObject[2];
@@ -70,12 +72,14 @@ public class Modifiers : MonoBehaviour
     }
     public GameObject burstShot;
     public GameObject normalShot;
+    public Fire mainCannonFire;
     public void activateBurstShot(){
         spreadShot.SetActive(false);
         DeActivateLasers();
         spreadShotFlag = false;
         HoneyLaserFlag = false;
         burstShotFlag = true;
+        mainCannonFire.setFireSpeed(mainCannonFire.burstFireSpeed);
        playerMan.playerMainGunFire.setBullet(burstShot);
          curTime = modifierTime;
 
@@ -93,11 +97,13 @@ public class Modifiers : MonoBehaviour
     }
     public void DeActivateLasers(){
          mainLaser.SetActive(false);
+         mainLaser.GetComponent<LaserTut>().audioSource.Stop();
          mainGun.SetActive(true);
          HoneyLaserFlag = false;
         for(int i = 0; i < 2;i++){
             if(sideLasers[i].activeSelf&& cannons[i].activeSelf){
                 sideLasers[i].SetActive(false);
+                sideLasers[i].GetComponent<LaserTut>().audioSource.Stop();
                  cannonGuns[i] .SetActive(true);
             }
         }
