@@ -75,7 +75,7 @@ public float laserDamage;
 
         lineRenderer.SetPosition(0, (Vector2)firePoint.position);
         startVFX.transform.position = (Vector2)firePoint.position;
-
+        if(mousePos.y <transform.position.y)
         lineRenderer.SetPosition(1, mousePos);
 
         Vector2 direction = mousePos - (Vector2)transform.position;
