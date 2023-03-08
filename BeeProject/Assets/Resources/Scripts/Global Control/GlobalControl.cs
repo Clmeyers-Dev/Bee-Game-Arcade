@@ -11,10 +11,11 @@ public class GlobalControl : MonoBehaviour
     // Start is called before the first frame update
     public static GlobalControl instance;
     [SerializeField]
-    private int points;
-
+    private float points;
+    public PlayerManager playerManager;
     void Awake()
     {
+        DontDestroyOnLoad (transform.gameObject);
         Application.targetFrameRate = 144;
         if (instance == null)
         {
@@ -24,6 +25,13 @@ public class GlobalControl : MonoBehaviour
         else if (instance != this)
         {
             Destroy(gameObject);
+        }
+    playerManager = FindObjectOfType<PlayerManager>();
+    }
+    void  Update()
+    {
+        if(playerManager!=null){
+            points = playerManager.score;
         }
     }
     

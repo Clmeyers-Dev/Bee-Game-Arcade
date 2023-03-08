@@ -8,13 +8,13 @@ public class VerticalParallax : MonoBehaviour
     public Transform bg1;
     public Transform bg2;
     public float size;
-    private Vector3 cameraTargetPos = new Vector3();
+    //private Vector3 cameraTargetPos = new Vector3();
     private Vector3 bg1TargetPos = new Vector3();
     private Vector3 bg2TargetPos = new Vector3();
     // Start is called before the first frame update
     void Start()
     {
-        size = bg1.GetComponent<BoxCollider2D>().size.y;
+      //  size = bg1.GetComponent<BoxCollider2D>().size.y;
     }
 
     // Update is called once per frame

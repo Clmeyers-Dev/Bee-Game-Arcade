@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - collision
+  - enemy
+  - confiner
+  - Spread
+  - Laser
+  - Burst
+  - cannon
   layers:
   - Default
   - TransparentFX
@@ -11,9 +18,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - confiner
+  - background
+  - collision
   - 
   - 
   - 
