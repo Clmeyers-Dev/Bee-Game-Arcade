@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Cinemachine;
+using UnityEngine.SceneManagement;
+
 public class PlayerManager : MonoBehaviour
 {
     // Start is called before the first frame update
     //[SerializeField]
     //private float upAndDown = 6;
+    private HealthManager healthManager;
     [SerializeField]
     private float downwardSpeed = 6;
     [SerializeField]
@@ -31,10 +34,14 @@ public class PlayerManager : MonoBehaviour
     public SpriteRenderer [] spriteArray  = new SpriteRenderer [1]; 
     void Start()
     {
-
+        healthManager = FindObjectOfType<HealthManager>();
     }
     void Update()
     {
+     // Debug.Log( healthManager.getNumberOfHealth());
+     if(healthManager.getNumberOfHealth()<=0){
+         Die();
+     }
         scoreText .text = score+"";
        // if (downwardSpeed < SpeedCap)
          //   downwardSpeed += moveSpeedIncrement * Time.deltaTime;
@@ -116,6 +123,11 @@ public class PlayerManager : MonoBehaviour
     {
         downwardSpeed = downwardSpeed / 2;
     }
+    [SerializeField]
+   private SceneEnum sceneToLoad;
+    private void Die(){
+             SceneManager.LoadSceneAsync(sceneToLoad.ToString());
+    }
     public Fire playerMainGunFire;
     // Update is called once per frame
     [SerializeField]
@@ -154,6 +166,23 @@ public class PlayerManager : MonoBehaviour
         if (Input.GetKey(KeyCode.D)&&transform.position.x<right.transform.position.x+Rightoffset)
         {
             transform.Translate(-Vector3.left * LeftAndRight * Time.deltaTime);
+        }
+        if(curHitTime<=hitTime){
+            curHitTime+=Time.deltaTime;
+        }
+    }
+    [SerializeField]
+    private float hitTime;
+    private float curHitTime;
+    void OnTriggerEnter2D(Collider2D other)
+    {
+    //    Debug.Log("hit");
+        if(other.tag == "collision"&&curHitTime>=hitTime){
+            //TODO  create an explosion on impact 
+              flashActive = true;
+         flashCounter = flashLength;
+            curHitTime = 0;
+            healthManager.loseHealth();
         }
     }
 }

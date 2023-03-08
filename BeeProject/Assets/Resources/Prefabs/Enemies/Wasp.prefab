@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d7d7611fffc4a1e44913e9dddfc2a4da, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 985c466b8826c5943b509266fa0c838e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -155,7 +155,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -5303247421530120293, guid: 62165e59b05ca2c4e862d408984832bb, type: 3}
+  m_Sprite: {fileID: 8433680774616587420, guid: 9ecc4d3f75887ce479a5865e40b504e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -280,11 +280,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c0f9fb4fc5483645838f6538ef9f3ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 75
+  health: 20
   flashLength: 1
   playerSprite: {fileID: 5118367117621296171}
   flashActive: 0
   sprites: 4
+  floatingPoints: {fileID: 7289066197964527000, guid: 3523bd7e40572e848859e0626c6d9b95, type: 3}
   spriteArray:
   - {fileID: 5118367115835145026}
   - {fileID: 5118367117621296171}
@@ -292,9 +293,12 @@ MonoBehaviour:
   - {fileID: 5118367117701573268}
   points: 175
   audioPlayer: {fileID: 5663969244572470518}
+  pointSpawnPoint: {fileID: 5118367117621296169}
   sound: {fileID: 8300000, guid: bae5460b498142c46a5f40a05850de10, type: 3}
   deathSound: {fileID: 8300000, guid: 4cf14f5afaa8f2940a8eeab88c57df10, type: 3}
   maxTime: 0.2
+  impulse: {fileID: 0}
+  pointTextOffset: 0
 --- !u!82 &5663969244572470518
 AudioSource:
   m_ObjectHideFlags: 0
@@ -505,7 +509,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 2af638ad9d403024580dc63122a4fc59, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a3a249eed16d41a4b8d9b4fdebcb09e0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -588,7 +592,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -5303247421530120293, guid: 62165e59b05ca2c4e862d408984832bb, type: 3}
+  m_Sprite: {fileID: 8433680774616587420, guid: 9ecc4d3f75887ce479a5865e40b504e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

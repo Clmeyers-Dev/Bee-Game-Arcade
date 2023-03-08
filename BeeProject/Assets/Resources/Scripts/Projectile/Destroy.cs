@@ -17,4 +17,7 @@ public class Destroy : MonoBehaviour
     {
         
     }
+    public void end(){
+        Destroy(gameObject);
+    }
 }

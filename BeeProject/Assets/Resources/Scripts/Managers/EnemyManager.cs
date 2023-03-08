@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using TMPro;
 public class EnemyManager : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -12,10 +13,13 @@ public class EnemyManager : MonoBehaviour
     public SpriteRenderer playerSprite;
 	public bool flashActive;
     public int sprites= 1;
+    [SerializeField]
+    private GameObject floatingPoints;
     public SpriteRenderer [] spriteArray  = new SpriteRenderer [1];  
     [SerializeField]
     private int points;
     public AudioSource audioPlayer;
+    public GameObject pointSpawnPoint;
     public AudioClip sound;
     public AudioClip deathSound;
     public float maxTime;
@@ -29,7 +33,8 @@ public class EnemyManager : MonoBehaviour
         //playerSprite = GetComponentInChildren<SpriteRenderer>();
     }
    
-
+    [SerializeField]
+    private float pointTextOffset;
 
     // Update is called once per frame
     void Update()
@@ -38,6 +43,8 @@ public class EnemyManager : MonoBehaviour
         curTimer+=Time.deltaTime;
         if(health<=0){
             AddPoints(points);
+          var floating =  Instantiate(floatingPoints,transform.position,Quaternion.identity);
+          floating.GetComponentInChildren<TextMesh>().text = points+"";
             impulse.GenerateImpulse();
           //  audioPlayer.PlayOneShot(deathSound);
             Destroy(gameObject);

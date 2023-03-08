@@ -12,6 +12,8 @@ public class Spawner : MonoBehaviour
     public float spawnPoint;
     public float max;
     
+    private float growthRate = .1f;
+
     // Start is called before the first frame update
     void Start()
     {
