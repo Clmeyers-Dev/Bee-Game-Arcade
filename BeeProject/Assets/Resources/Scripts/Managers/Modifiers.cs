@@ -4,145 +4,161 @@ using UnityEngine;
 
 public class Modifiers : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public GameObject spreadShot;
+    [SerializeField] private GameObject spreadShot;
     private bool spreadShotFlag;
-    private bool HoneyLaserFlag;
+    private bool honeyLaserFlag;
     private bool burstShotFlag;
     public AudioSource[] laserSounds = new AudioSource[3];
     private PlayerManager playerMan;
-    [SerializeField]
-    private AudioClip modifierSound;
+    [SerializeField] private AudioClip modifierSound;
     private float curTime;
-    [SerializeField]
-    private float modifierTime;
-    [SerializeField]
-    GameObject[] cannons = new GameObject[2];
+    [SerializeField] private float modifierTime;
+    [SerializeField] private GameObject[] cannons = new GameObject[2];
     public GameObject mainLaser;
-   public GameObject[] sideLasers = new GameObject[2];
+    public GameObject[] sideLasers = new GameObject[2];
+    public GameObject mainGun;
+
     void Start()
     {
         playerMan = FindObjectOfType<PlayerManager>();
     }
-    public GameObject mainGun;
-    // Update is called once per frame
+
     void Update()
     {
-        if(curTime <=0){
-        spreadShot.SetActive(false);
-        DeActivateLasers();
-        spreadShotFlag = false;
-        HoneyLaserFlag = false;
-        burstShotFlag = false;
-        mainCannonFire.setFireSpeed(mainCannonFire.fireSpeed);
-        for(int i = 0;i < laserSounds.Length;i++){
-            laserSounds[i].Stop();
+        if (curTime <= 0)
+        {
+            spreadShot.SetActive(false);
+            DeactivateLasers();
+            spreadShotFlag = false;
+            honeyLaserFlag = false;
+            burstShotFlag = false;
+            mainCannonFire.SetFireSpeed(mainCannonFire.FireSpeed);
+            for (int i = 0; i < laserSounds.Length; i++)
+            {
+                laserSounds[i].Stop();
+            }
+            playerMan.PlayerMainGunFire.SetBullet(normalShot);
         }
-         playerMan.playerMainGunFire.setBullet(normalShot);
-        }else{
-            curTime -=Time.deltaTime;
+        else
+        {
+            curTime -= Time.deltaTime;
         }
     }
-    public void activateSpreadShot(){
+
+    public void ActivateSpreadShot()
+    {
         spreadShot.SetActive(true);
         spreadShotFlag = true;
-        HoneyLaserFlag = false;
+        honeyLaserFlag = false;
         burstShotFlag = false;
-         playerMan.playerMainGunFire.setBullet(normalShot);
+        playerMan.PlayerMainGunFire.SetBullet(normalShot);
         curTime = modifierTime;
     }
-    public GameObject[] cannonGuns= new GameObject[2];
-    public void activateHoneyLaser(){
+
+    public GameObject[] cannonGuns = new GameObject[2];
+
+    public void ActivateHoneyLaser()
+    {
         mainGun.SetActive(false);
         spreadShot.SetActive(false);
         spreadShotFlag = false;
-        HoneyLaserFlag = true;
+        honeyLaserFlag = true;
         burstShotFlag = false;
-         mainLaser.SetActive(true);
-        for(int i = 0; i < 2;i++){
+        mainLaser.SetActive(true);
+        for (int i = 0; i < 2; i++)
+        {
             cannonGuns[i].SetActive(false);
-            if(sideLasers[i].activeSelf==false&& cannons[i].activeSelf==true){
+            if (sideLasers[i].activeSelf == false && cannons[i].activeSelf == true)
+            {
                 sideLasers[i].SetActive(true);
-                
             }
         }
-         curTime = modifierTime;
-    
-
+        curTime = modifierTime;
     }
+
     public GameObject burstShot;
     public GameObject normalShot;
     public Fire mainCannonFire;
-    public void activateBurstShot(){
-        spreadShot.SetActive(false);
-        DeActivateLasers();
-        spreadShotFlag = false;
-        HoneyLaserFlag = false;
-        burstShotFlag = true;
-        mainCannonFire.setFireSpeed(mainCannonFire.burstFireSpeed);
-       playerMan.playerMainGunFire.setBullet(burstShot);
-         curTime = modifierTime;
 
+    public void ActivateBurstShot()
+    {
+        spreadShot.SetActive(false);
+        DeactivateLasers();
+        spreadShotFlag = false;
+        honeyLaserFlag = false;
+        burstShotFlag = true;
+        mainCannonFire.SetFireSpeed(mainCannonFire.BurstFireSpeed);
+        playerMan.PlayerMainGunFire.SetBullet(burstShot);
+        curTime = modifierTime;
     }
-    public void activateCannons(){
-          for(int i = 0; i < 2;i++){
-            if(!cannons[i].activeSelf){
+
+    public void ActivateCannons()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            if (!cannons[i].activeSelf)
+            {
                 cannons[i].SetActive(true);
-                
             }
-            if(HoneyLaserFlag){
-                activateHoneyLaser();
+            if (honeyLaserFlag)
+            {
+                ActivateHoneyLaser();
             }
         }
     }
-    public void DeActivateLasers(){
-         mainLaser.SetActive(false);
-         mainLaser.GetComponent<LaserTut>().audioSource.Stop();
-         mainGun.SetActive(true);
-         HoneyLaserFlag = false;
-        for(int i = 0; i < 2;i++){
-            if(sideLasers[i].activeSelf&& cannons[i].activeSelf){
+
+    public void DeactivateLasers()
+    {
+        mainLaser.SetActive(false);
+        mainLaser.GetComponent<LaserTut>().audioSource.Stop();
+        mainGun.SetActive(true);
+        honeyLaserFlag = false;
+        for (int i = 0; i < 2; i++)
+        {
+            if (sideLasers[i].activeSelf && cannons[i].activeSelf)
+            {
                 sideLasers[i].SetActive(false);
                 sideLasers[i].GetComponent<LaserTut>().audioSource.Stop();
-                 cannonGuns[i] .SetActive(true);
+                cannonGuns[i].SetActive(true);
             }
         }
     }
-void OnTriggerEnter2D(Collider2D other)
-{
-    
-   // Debug.Log("hit");   
-    if(other.tag == "Spread"){
-        playerMan.audioSource.PlayOneShot(modifierSound);
-        playerMan.addPoints(500);
-        Debug.Log("spread active");
-        activateSpreadShot();
-        DeActivateLasers();
-        Destroy(other.gameObject);
-    }
-    if(other.tag == "Laser"){
-        playerMan.audioSource.PlayOneShot(modifierSound);
-         playerMan.addPoints(500);
-        activateHoneyLaser();
-           Destroy(other.gameObject);
-    }
-    if(other.tag == "Burst"){
-        playerMan.audioSource.PlayOneShot(modifierSound);
-         playerMan.addPoints(500);
-        activateBurstShot();
-        DeActivateLasers();
-        Destroy(other.gameObject);
-    }
-    if(other.tag == "cannon"){
-        playerMan.audioSource.PlayOneShot(modifierSound);
-         playerMan.addPoints(500);
-        Debug.Log("cannons active");
-        activateCannons();
-        if(HoneyLaserFlag){
-            activateHoneyLaser();
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Spread")
+        {
+            playerMan.AudioSource.PlayOneShot(modifierSound);
+            playerMan.AddPoints(500);
+            ActivateSpreadShot();
+            DeactivateLasers();
+            Destroy(other.gameObject);
         }
-        Destroy(other.gameObject);
-      
+        if (other.tag == "Laser")
+        {
+            playerMan.AudioSource.PlayOneShot(modifierSound);
+            playerMan.AddPoints(500);
+            ActivateHoneyLaser();
+            Destroy(other.gameObject);
+        }
+        if (other.tag == "Burst")
+        {
+            playerMan.AudioSource.PlayOneShot(modifierSound);
+            playerMan.AddPoints(500);
+            ActivateBurstShot();
+            DeactivateLasers();
+            Destroy(other.gameObject);
+        }
+        if (other.tag == "cannon")
+        {
+            playerMan.AudioSource.PlayOneShot(modifierSound);
+            playerMan.AddPoints(500);
+            ActivateCannons();
+            if (honeyLaserFlag)
+            {
+                ActivateHoneyLaser();
+            }
+            Destroy(other.gameObject);
+        }
     }
-}
 }
