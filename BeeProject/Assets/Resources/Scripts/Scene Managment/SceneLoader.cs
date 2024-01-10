@@ -5,24 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    // Start is called before the first frame update
     public SceneEnum sceneToLoad;
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    // This method is intended to be called when a button triggers a scene load
+    public void LoadSceneWithButton()
     {
-        
+        SceneManager.LoadSceneAsync(sceneToLoad.ToString());
     }
-    public void loadWithbutton(){
-       SceneManager.LoadSceneAsync(sceneToLoad.ToString());
-       // Load.LoadThis(sceneToLoad);
-    }
-
 }
+
+// An enumeration to represent different scenes in the game
 public enum SceneEnum
 {
     End_Scene,
@@ -30,8 +22,4 @@ public enum SceneEnum
     Start_Menu,
     Testing_Scene,
     Options
-
-
-
 }
-
