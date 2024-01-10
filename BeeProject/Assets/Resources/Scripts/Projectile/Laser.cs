@@ -4,94 +4,91 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    // Start is called before the first frame update
     public Camera cam;
     public LineRenderer line;
     public Transform firePoint;
-    public GameObject startVfx;
+    public GameObject startVFX;
     public GameObject endVFX;
+
     private List<ParticleSystem> particles = new List<ParticleSystem>();
-    void Start()
+
+    [SerializeField] private float length;
+    [SerializeField] private LayerMask mask;
+    [SerializeField] private float offset;
+    [SerializeField] private float offset2;
+
+    private void Start()
     {
-            FillLists();
-          DisableLaser();
-        
+        FillLists();
+        DisableLaser();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-               RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position, transform.forward.normalized, mask);
-    
-
-            Debug.DrawRay(transform.position,transform.forward,Color.green);      
-        if(Input.GetKeyDown(KeyCode.Mouse0)){
-            enableLaser();
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            EnableLaser();
         }
-        if(Input.GetKey(KeyCode.Mouse0)){
+
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
             UpdateLaser();
         }
-        if(Input.GetKeyUp(KeyCode.Mouse0)){
+
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
             DisableLaser();
         }
     }
-    void enableLaser(){
-        line.enabled = true;
-        for(int i =0; i<particles.Count;i++){
-            particles[i].Play();
-        }
-    }
-    public float length;
-   public LayerMask mask;
-   public float offset;
-    void  UpdateLaser()
+
+    private void EnableLaser()
     {
-        // var mousePos = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
+        line.enabled = true;
 
-      // line.SetPosition(0, (Vector2)firePoint.position);
-       // startVFX.transform.position = (Vector2)firePoint.position;
-
-      //  line.SetPosition(1, mousePos);
-
-      //  Vector2 direction = mousePos - (Vector2)transform.position;
-        RaycastHit2D hit = Physics2D.Raycast((Vector2) transform.position,  Vector2.down ,100,mask);
-        if(hit)
+        foreach (ParticleSystem ps in particles)
         {
-            Debug.Log(hit);
-            line.SetPosition(1, new Vector3(0,hit.point.y,0));
-            Debug.Log(hit.point);
+            ps.Play();
         }
-     
-        endVFX.transform.position = new Vector3(startVfx.transform.position.x,line.GetPosition(1).y,0);// line.GetPosition(1);
-         //   line.SetPosition(1,endVFX.transform.position);
-       // var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-     
-     // transform.rotation = Quaternion.AngleAxis(angle+offset,new Vector3(0,0,1) );
-        // Debug.DrawRay(transform.position,transform.forward,Color.red);
- 
-         // endVFX.transform.position = hit.point;//.GetPosition(1);
     }
-    public float offset2;
-    void DisableLaser(){
+
+    private void UpdateLaser()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 100, mask);
+
+        if (hit)
+        {
+            line.SetPosition(1, new Vector3(0, hit.point.y, 0));
+        }
+
+        endVFX.transform.position = new Vector3(startVFX.transform.position.x, line.GetPosition(1).y, 0);
+    }
+
+    private void DisableLaser()
+    {
         line.enabled = false;
-        for(int i =0; i<particles.Count;i++){
-            particles[i].Stop();
+
+        foreach (ParticleSystem ps in particles)
+        {
+            ps.Stop();
         }
     }
-    public void fire(){
 
+    private void FillLists()
+    {
+        AddParticleSystems(startVFX);
+        AddParticleSystems(endVFX);
     }
-    void FillLists(){
-        for(int i = 0; i < startVfx.transform.childCount;i++){
-            var ps = startVfx.transform.GetChild(i).GetComponent<ParticleSystem>();
-            if(ps !=null)
-            particles.Add(ps);
-        }
 
-        for(int i = 0; i < endVFX.transform.childCount;i++){
-            var ps = endVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
-            if(ps !=null)
-            particles.Add(ps);
+    private void AddParticleSystems(GameObject vfxObject)
+    {
+        for (int i = 0; i < vfxObject.transform.childCount; i++)
+        {
+            ParticleSystem ps = vfxObject.transform.GetChild(i).GetComponent<ParticleSystem>();
+
+            if (ps != null)
+            {
+                particles.Add(ps);
+            }
         }
     }
 }
