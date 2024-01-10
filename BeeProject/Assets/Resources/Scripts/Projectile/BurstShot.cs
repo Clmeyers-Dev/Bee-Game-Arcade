@@ -4,55 +4,90 @@ using UnityEngine;
 
 public class BurstShot : MonoBehaviour
 {
-   public float damage;
-    [SerializeField]
-    private float speed;
+    public float damage;
+    [SerializeField] private float speed;
     private Rigidbody2D rb;
-    [SerializeField]
-    private int bullets;
-    public GameObject burstBullets;
-    [SerializeField]
-    private float maxtime;
-    private float curtime;
-    // Start is called before the first frame update
+    [SerializeField] private int bullets;
+    public GameObject burstBulletPrefab;
+    private List<GameObject> burstBulletsPool = new List<GameObject>();
+    [SerializeField] private float maxTime;
+    private float currentTime;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        curtime = maxtime;
+        InitializeBurstBulletsPool();
+        currentTime = maxTime;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(curtime<=0 ){
-            burst();
-        }else{
-            curtime-=Time.deltaTime;
+        if (currentTime <= 0)
+        {
+            Explode();
+        }
+        else
+        {
+            currentTime -= Time.deltaTime;
         }
     }
-     void FixedUpdate()
+
+    void FixedUpdate()
     {
-        transform.Translate(Vector3.down*speed*Time.deltaTime);
+        MoveBullet();
     }
-    public void setSpeed(float s){
-        speed = s;
-    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
-//         Debug.Log("hit");
-        if(other.tag == "collision"){
-            burst();
+        if (other.tag == "collision")
+        {
+            Explode();
             Destroy(gameObject);
-            if(other.GetComponent<EnemyManager>()!=null)
-            other.GetComponent<EnemyManager>().hurt(damage);
+            if (other.GetComponent<EnemyManager>() != null)
+            {
+                other.GetComponent<EnemyManager>().Hurt(damage);
+            }
         }
     }
-    public void burst(){
+
+    void MoveBullet()
+    {
+        transform.Translate(Vector3.down * speed * Time.deltaTime);
+    }
+
+    void Explode()
+    {
         float rotation = 0;
-        for(int i = 0;i < bullets; i ++){
-            Instantiate(burstBullets,transform.position,Quaternion.Euler(0,0,rotation));
-            rotation +=15;
+        for (int i = 0; i < bullets; i++)
+        {
+            GameObject burstBullet = GetPooledBurstBullet();
+            burstBullet.transform.position = transform.position;
+            burstBullet.transform.rotation = Quaternion.Euler(0, 0, rotation);
+            burstBullet.SetActive(true);
+            rotation += 15;
         }
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+    }
+
+    void InitializeBurstBulletsPool()
+    {
+        for (int i = 0; i < bullets; i++)
+        {
+            GameObject burstBullet = Instantiate(burstBulletPrefab);
+            burstBullet.SetActive(false);
+            burstBulletsPool.Add(burstBullet);
+        }
+    }
+
+    GameObject GetPooledBurstBullet()
+    {
+        foreach (GameObject burstBullet in burstBulletsPool)
+        {
+            if (!burstBullet.activeInHierarchy)
+            {
+                return burstBullet;
+            }
+        }
+        return null;
     }
 }
