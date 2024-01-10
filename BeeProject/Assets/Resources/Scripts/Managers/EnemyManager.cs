@@ -3,136 +3,88 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using TMPro;
+
 public class EnemyManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    [SerializeField]
-    private float health;
-    public float flashLength = 0f;
+    [SerializeField] private float health;
+    [SerializeField] private float flashLength = 0f;
     private float flashCounter = 0f;
-    public SpriteRenderer playerSprite;
-	public bool flashActive;
-    public int sprites= 1;
-    [SerializeField]
-    private GameObject floatingPoints;
-    public SpriteRenderer [] spriteArray  = new SpriteRenderer [1];  
-    [SerializeField]
-    private int points;
-    public AudioSource audioPlayer;
-    public GameObject pointSpawnPoint;
-    public AudioClip sound;
-    public AudioClip deathSound;
-    public float maxTime;
+    [SerializeField] private SpriteRenderer playerSprite;
+    [SerializeField] private bool flashActive;
+    [SerializeField] private int sprites = 1;
+    [SerializeField] private GameObject floatingPoints;
+    [SerializeField] private SpriteRenderer[] spriteArray = new SpriteRenderer[1];
+    [SerializeField] private int points;
+    [SerializeField] private AudioSource audioPlayer;
+    [SerializeField] private GameObject pointSpawnPoint;
+    [SerializeField] private AudioClip sound;
+    [SerializeField] private AudioClip deathSound;
+    [SerializeField] private float maxTime;
     private float curTimer;
-    public CinemachineImpulseSource	impulse;
+    [SerializeField] private CinemachineImpulseSource impulse;
+
     void Start()
     {
-      impulse = GetComponent<CinemachineImpulseSource>();
-      
-
-        //playerSprite = GetComponentInChildren<SpriteRenderer>();
+        impulse = GetComponent<CinemachineImpulseSource>();
     }
-   
-    [SerializeField]
-    private float pointTextOffset;
 
-    // Update is called once per frame
+    [SerializeField] private float pointTextOffset;
+
     void Update()
     {
-        if(curTimer<=maxTime)
-        curTimer+=Time.deltaTime;
-        if(health<=0){
+        if (curTimer <= maxTime)
+            curTimer += Time.deltaTime;
+
+        if (health <= 0)
+        {
             AddPoints(points);
-          var floating =  Instantiate(floatingPoints,transform.position,Quaternion.identity);
-          floating.GetComponentInChildren<TextMesh>().text = points+"";
+            var floating = Instantiate(floatingPoints, transform.position, Quaternion.identity);
+            floating.GetComponentInChildren<TextMesh>().text = points + "";
             impulse.GenerateImpulse();
-          //  audioPlayer.PlayOneShot(deathSound);
             Destroy(gameObject);
         }
-         if (flashActive)
+
+        if (flashActive)
         {
-            if (flashCounter > flashLength * .99f)
+            float alpha = Mathf.PingPong(flashCounter / flashLength, 1f) * 0.5f + 0.5f;
+
+            foreach (SpriteRenderer sprite in spriteArray)
             {
-                foreach(SpriteRenderer sprite in spriteArray){
-                    if(sprite!=null)
-                    sprite.color =new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, .5f);
-                }
-              //  playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
+                if (sprite != null)
+                    sprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, alpha);
             }
-            else if (flashCounter > flashLength * .82f)
+
+            flashCounter -= Time.deltaTime;
+
+            if (flashCounter <= 0f)
             {
-                foreach(SpriteRenderer sprite in spriteArray){
-                    if(sprite!=null)
-                    sprite.color =new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
+                foreach (SpriteRenderer sprite in spriteArray)
+                {
+                    if (sprite != null)
+                        sprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
                 }
-               // playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
-            }
-            else if (flashCounter > flashLength * .66f)
-            {
-                foreach(SpriteRenderer sprite in spriteArray){
-                    if(sprite!=null)
-                    sprite.color =new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, .5f);
-                }
-               // playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
-            }
-            else if (flashCounter > flashLength * .49f)
-            {
-                foreach(SpriteRenderer sprite in spriteArray){
-                    if(sprite!=null)
-                    sprite.color =new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
-                }
-              //  playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
-            }
-            else if (flashCounter > flashLength * .33f)
-            {
-                foreach(SpriteRenderer sprite in spriteArray){
-                    if(sprite!=null)
-                    sprite.color =new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, .5f);
-                }
-              //  playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
-            }
-            else if (flashCounter > flashLength * .16f)
-            {
-                foreach(SpriteRenderer sprite in spriteArray){
-                    if(sprite!=null)
-                    sprite.color =new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
-                }
-               // playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
-            }
-            else if (flashCounter > 0f)
-            {
-                foreach(SpriteRenderer sprite in spriteArray){
-                    if(sprite!=null)
-                    sprite.color =new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, .5f);
-                }
-               // playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
-            }
-            else
-            {
-                foreach(SpriteRenderer sprite in spriteArray){
-                    if(sprite!=null)
-                    sprite.color =new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
-                }
-                //playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
                 flashActive = false;
             }
-            flashCounter -= Time.deltaTime;
         }
     }
-    public void hurt(float dmg){
+
+    public void Hurt(float damage)
+    {
         flashActive = true;
-         flashCounter = flashLength;
-        health -= dmg;
-        if(curTimer >=maxTime){
-           // Debug.Log("play sound");
-//          audioPlayer.PlayOneShot(sound);
-          curTimer = 0;
+        flashCounter = flashLength;
+        health -= damage;
+
+        if (curTimer >= maxTime)
+        {
+            audioPlayer.PlayOneShot(sound);
+            curTimer = 0;
         }
     }
-  
-    public void AddPoints(int p){
-  PlayerManager player = FindObjectOfType<PlayerManager>();
-  player.audioSource.PlayOneShot(deathSound);
-  player.addPoints(p);
+
+    public void AddPoints(int p)
+    {
+        PlayerManager player = FindObjectOfType<PlayerManager>();
+        player.audioSource.PlayOneShot(deathSound);
+        player.AddPoints(p);
     }
 }
