@@ -1,38 +1,56 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-   public float damage;
-    [SerializeField]
-    private float speed;
+    public float damage;
+    [SerializeField] private float speed;
+
     private Rigidbody2D rb;
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        InitializeRigidbody();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        
+        MoveProjectile();
     }
-     void FixedUpdate()
+
+    public void SetSpeed(float newSpeed)
     {
-        transform.Translate(Vector3.down*speed*Time.deltaTime);
+        speed = newSpeed;
     }
-    public void setSpeed(float s){
-        speed = s;
-    }
-    void OnTriggerEnter2D(Collider2D other)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-//         Debug.Log("hit");
-        if(other.tag == "collision"){
+        HandleCollision(other);
+    }
+
+    private void InitializeRigidbody()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody2D component not found on the projectile GameObject.");
+        }
+    }
+
+    private void MoveProjectile()
+    {
+        transform.Translate(Vector3.down * speed * Time.deltaTime);
+    }
+
+    private void HandleCollision(Collider2D other)
+    {
+        if (other.CompareTag("collision"))
+        {
             Destroy(gameObject);
-            if(other.GetComponent<EnemyManager>()!=null)
-            other.GetComponent<EnemyManager>().hurt(damage);
+            EnemyManager enemyManager = other.GetComponent<EnemyManager>();
+            if (enemyManager != null)
+            {
+                enemyManager.Hurt(damage);
+            }
         }
     }
 }
