@@ -366,6 +366,37 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 4090732211761432126, guid: 75d2719e48564e6429e078f3a58b36ad, type: 3}
   m_PrefabInstance: {fileID: 13210020}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &139133175
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 139133176}
+  m_Layer: 0
+  m_Name: Left_Bound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &139133176
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139133175}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -12.98, y: -9.931543, z: 0.095487595}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &175943892
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,31 +601,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   downwardSpeed: 20.00085
-  LeftAndRight: 13
-  left: {fileID: 803874890}
-  right: {fileID: 1046914086}
-  top: {fileID: 1312614514}
-  bottom: {fileID: 1513258008}
-  score: 0
-  impulse: {fileID: 197083888}
+  leftAndRightSpeed: 6
+  rightOffset: 0
+  leftOffset: 0
+  topOffset: -1
+  bottomOffset: 0
+  healthManager: {fileID: 0}
+  leftBoundary: {fileID: 139133175}
+  rightBoundary: {fileID: 1517094371}
+  topBoundary: {fileID: 1089383082}
+  bottomBoundary: {fileID: 1114380890}
   scoreText: {fileID: 1659378342}
+  impulse: {fileID: 197083888}
   audioSource: {fileID: 197083886}
-  flashLength: 1
   playerSprite: {fileID: 1836155937}
-  flashActive: 0
   spriteArray:
   - {fileID: 921182732}
   - {fileID: 1836155937}
   - {fileID: 210135044}
   - {fileID: 422608099}
+  flashLength: 1
+  hitTime: 1
+  score: 0
+  scoreModifier: 1
   sceneToLoad: 0
   playerMainGunFire: {fileID: 1301002720}
-  Rightoffset: -2.8
-  LeftOffset: 2.8
-  topOffset: -1
-  BottomOffset: 1
-  modifier: 1
-  hitTime: 1
 --- !u!50 &197083885
 Rigidbody2D:
   serializedVersion: 4
@@ -938,13 +969,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46f2a4c1b7368c0448dc7091b943a8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxTime: 20
-  minTime: 10
-  curTime: 0
-  randomTime: 0
-  objectToSpawn: {fileID: 2499893924783519710, guid: 30d1331d6891fb149bbbb1dbf458449c, type: 3}
-  spawnbox: {fileID: 288985379}
-  spawnPoint: 0
 --- !u!4 &288985381
 Transform:
   m_ObjectHideFlags: 0
@@ -2494,13 +2518,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46f2a4c1b7368c0448dc7091b943a8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxTime: 20
-  minTime: 10
-  curTime: 0
-  randomTime: 0
-  objectToSpawn: {fileID: 8320893816099026821, guid: 2d19bf3d1ae7fb1489ddc38147b17964, type: 3}
-  spawnbox: {fileID: 1052693092}
-  spawnPoint: 0
 --- !u!4 &1052693094
 Transform:
   m_ObjectHideFlags: 0
@@ -2515,6 +2532,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1825375571}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1089383082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1089383083}
+  m_Layer: 0
+  m_Name: top_bound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1089383083
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089383082}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -12.98, y: 2.17, z: 0.095487595}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1114380890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1114380891}
+  m_Layer: 0
+  m_Name: bottom_bound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1114380891
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114380890}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -12.98, y: -12.11, z: 0.095487595}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1138000706 stripped
 Transform:
@@ -2575,12 +2654,8 @@ MonoBehaviour:
   timer: 0
   firepoint: {fileID: 1300825250}
   bullet: {fileID: 1780369296357227850, guid: 629f1e7ceec013942a67e756a7d274df, type: 3}
-  parent: {fileID: 197083880}
   player: {fileID: 0}
   burstFireSpeed: 1
-  audioPlayer: {fileID: 197083886}
-  sound: {fileID: 8300000, guid: 163d5c2b8ef5d424981cc27e56e95739, type: 3}
-  currentSpeed: 0
 --- !u!1 &1301002718
 GameObject:
   m_ObjectHideFlags: 0
@@ -2630,12 +2705,8 @@ MonoBehaviour:
   timer: 0
   firepoint: {fileID: 874273267}
   bullet: {fileID: 1780369296357227850, guid: 629f1e7ceec013942a67e756a7d274df, type: 3}
-  parent: {fileID: 197083880}
   player: {fileID: 0}
   burstFireSpeed: 1
-  audioPlayer: {fileID: 197083886}
-  sound: {fileID: 8300000, guid: 163d5c2b8ef5d424981cc27e56e95739, type: 3}
-  currentSpeed: 0
 --- !u!1 &1312614514
 GameObject:
   m_ObjectHideFlags: 0
@@ -2969,6 +3040,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1517094371
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1517094372}
+  m_Layer: 0
+  m_Name: rightbound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1517094372
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517094371}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.91, y: -9.931543, z: 0.095487595}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1527745492
 GameObject:
   m_ObjectHideFlags: 0
@@ -3429,13 +3531,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46f2a4c1b7368c0448dc7091b943a8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxTime: 45
-  minTime: 10
-  curTime: 0
-  randomTime: 0
-  objectToSpawn: {fileID: 8142328089802957905, guid: 53bd6167dd1e1424198c4ea54b05e2a4, type: 3}
-  spawnbox: {fileID: 1685099879}
-  spawnPoint: 0
 --- !u!4 &1685099881
 Transform:
   m_ObjectHideFlags: 0
@@ -3657,12 +3752,8 @@ MonoBehaviour:
   timer: 0
   firepoint: {fileID: 1759639325}
   bullet: {fileID: 1780369296357227850, guid: 629f1e7ceec013942a67e756a7d274df, type: 3}
-  parent: {fileID: 197083880}
   player: {fileID: 0}
   burstFireSpeed: 1
-  audioPlayer: {fileID: 197083886}
-  sound: {fileID: 8300000, guid: 163d5c2b8ef5d424981cc27e56e95739, type: 3}
-  currentSpeed: 0
 --- !u!1 &1825375570
 GameObject:
   m_ObjectHideFlags: 0
@@ -4022,13 +4113,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46f2a4c1b7368c0448dc7091b943a8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxTime: 50
-  minTime: 10
-  curTime: 0
-  randomTime: 0
-  objectToSpawn: {fileID: 4258657806926263380, guid: 294173a25bf513b4abc0071ce71695f9, type: 3}
-  spawnbox: {fileID: 1884052008}
-  spawnPoint: 0
 --- !u!4 &1884052010
 Transform:
   m_ObjectHideFlags: 0

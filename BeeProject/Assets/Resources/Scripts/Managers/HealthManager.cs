@@ -6,7 +6,7 @@ public class HealthManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] healthBars = new GameObject[3];
 
-    public void LoseHealth()
+    public void loseHealth()
     {
         for (int i = 0; i < healthBars.Length; i++)
         {

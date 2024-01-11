@@ -10,7 +10,7 @@ public class LaserTut : MonoBehaviour
     public GameObject startVFX;
     public GameObject endVFX;
 
-    [SerializeField] private AudioSource audioSource;
+     public AudioSource audioSource;
     [SerializeField] private AudioClip sound;
 
     private Quaternion rotation;

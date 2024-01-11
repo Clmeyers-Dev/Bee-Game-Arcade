@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -32,9 +33,9 @@ public class Fire : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Space))
             {
-                var shot = Instantiate(bullet, firepoint.position, Quaternion.Euler(parent.transform.localEulerAngles.x, parent.transform.localEulerAngles.y, parent.transform.localEulerAngles.z + fireangle));
-                GetComponent<AudioSource>().PlayOneShot(sound);
-                timer = currentSpeed;
+                var shot = Instantiate(bullet, firepoint.position, Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z + fireangle));
+              //  GetComponent<AudioSource>().PlayOneShot(sound);
+              //  timer = currentSpeed;
             }
         }
         else
@@ -42,4 +43,10 @@ public class Fire : MonoBehaviour
             timer -= Time.deltaTime;
         }
     }
+
+    internal void SetFireSpeed(object fireSpeedA)
+    {
+       // fireSpeed = fireSpeedA;
+    }
+
 }

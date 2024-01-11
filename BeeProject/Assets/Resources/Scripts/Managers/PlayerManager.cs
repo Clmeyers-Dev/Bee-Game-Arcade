@@ -22,7 +22,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObject bottomBoundary;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private CinemachineImpulseSource impulse;
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField] public AudioSource audioSource;
     [SerializeField] private SpriteRenderer playerSprite;
     [SerializeField] private SpriteRenderer[] spriteArray = new SpriteRenderer[1];
 
@@ -54,7 +54,7 @@ public class PlayerManager : MonoBehaviour
         HandleFlashEffect();
         UpdateScoreText();
 
-        if (healthManager.getNumberOfHealth() <= 0)
+        if (healthManager.GetNumberOfHealth() <= 0)
         {
             Die();
         }

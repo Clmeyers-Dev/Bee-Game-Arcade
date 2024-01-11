@@ -32,12 +32,12 @@ public class Modifiers : MonoBehaviour
             spreadShotFlag = false;
             honeyLaserFlag = false;
             burstShotFlag = false;
-            mainCannonFire.SetFireSpeed(mainCannonFire.FireSpeed);
+          //  mainCannonFire.SetFireSpeed(mainCannonFire.FireSpeed);
             for (int i = 0; i < laserSounds.Length; i++)
             {
                 laserSounds[i].Stop();
             }
-            playerMan.PlayerMainGunFire.SetBullet(normalShot);
+          //  playerMan.PlayerMainGunFire.SetBullet(normalShot);
         }
         else
         {
@@ -51,7 +51,7 @@ public class Modifiers : MonoBehaviour
         spreadShotFlag = true;
         honeyLaserFlag = false;
         burstShotFlag = false;
-        playerMan.PlayerMainGunFire.SetBullet(normalShot);
+       // playerMan.PlayerMainGunFire.SetBullet(normalShot);
         curTime = modifierTime;
     }
 
@@ -87,8 +87,8 @@ public class Modifiers : MonoBehaviour
         spreadShotFlag = false;
         honeyLaserFlag = false;
         burstShotFlag = true;
-        mainCannonFire.SetFireSpeed(mainCannonFire.BurstFireSpeed);
-        playerMan.PlayerMainGunFire.SetBullet(burstShot);
+        //mainCannonFire.SetFireSpeed(mainCannonFire.BurstFireSpeed);
+       // playerMan.PlayerMainGunFire.SetBullet(burstShot);
         curTime = modifierTime;
     }
 
@@ -128,7 +128,7 @@ public class Modifiers : MonoBehaviour
     {
         if (other.tag == "Spread")
         {
-            playerMan.AudioSource.PlayOneShot(modifierSound);
+            playerMan.audioSource.PlayOneShot(modifierSound);
             playerMan.AddPoints(500);
             ActivateSpreadShot();
             DeactivateLasers();
@@ -136,14 +136,14 @@ public class Modifiers : MonoBehaviour
         }
         if (other.tag == "Laser")
         {
-            playerMan.AudioSource.PlayOneShot(modifierSound);
+            playerMan.audioSource.PlayOneShot(modifierSound);
             playerMan.AddPoints(500);
             ActivateHoneyLaser();
             Destroy(other.gameObject);
         }
         if (other.tag == "Burst")
         {
-            playerMan.AudioSource.PlayOneShot(modifierSound);
+            playerMan.audioSource.PlayOneShot(modifierSound);
             playerMan.AddPoints(500);
             ActivateBurstShot();
             DeactivateLasers();
@@ -151,7 +151,7 @@ public class Modifiers : MonoBehaviour
         }
         if (other.tag == "cannon")
         {
-            playerMan.AudioSource.PlayOneShot(modifierSound);
+            playerMan.audioSource.PlayOneShot(modifierSound);
             playerMan.AddPoints(500);
             ActivateCannons();
             if (honeyLaserFlag)
