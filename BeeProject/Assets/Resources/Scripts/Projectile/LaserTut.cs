@@ -87,7 +87,7 @@ public class LaserTut : MonoBehaviour
 
             if (hit.collider.gameObject.GetComponent<EnemyManager>() != null)
             {
-                hit.collider.gameObject.GetComponent<EnemyManager>().hurt(laserDamage);
+                hit.collider.gameObject.GetComponent<EnemyManager>().Hurt(laserDamage);
 
                 if (!audioSource.isPlaying)
                     audioSource.PlayOneShot(sound);
